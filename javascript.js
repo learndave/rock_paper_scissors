@@ -1,5 +1,7 @@
 function computerPlay() {
-    return getRandomInteger(0,3);
+    const result = getRandomInteger(0,3);
+    
+    return result;
 }
 
 function getRandomInteger(start,end) {
@@ -32,18 +34,6 @@ function getRoundWinner(playerSelection, computerSelection) {
             roundWinner = 1;
         }
     }
-
-    playerSelection = convertIntegerToWords(playerSelection);
-    computerSelection = convertIntegerToWords(computerSelection);
-    console.log("        YOU: " + playerSelection);
-    console.log("   COMPUTER: " + computerSelection);
-    if (roundWinner == 0) {
-        console.log("     You win this round! " + playerSelection + " beats " + computerSelection + ".");
-    } else if (roundWinner == 1) {
-        console.log("     You lose this round! " + computerSelection + " beats " + playerSelection + ".");
-    } else {
-        console.log("You are tied with the computer! Nobody wins.");
-    }
     return roundWinner;
 }
 
@@ -67,61 +57,43 @@ function getWinner(scores) {
     }
 }
 
-function getPlayerSelection() {
-    console.log("Input 0 for Rock, 1 for Paper; and 2 for Scissors.")
-    console.log("INPUT: ")
-    let playerSelection = parseInt(prompt("What is your choice:\n "));
-    if (playerSelection >= 0 & playerSelection <= 2) {
-        return playerSelection;
+function randomizeHTML(text) {
+    const computerPlay = document.querySelector(".text.computer-play")
+    computerPlay.textContent = text;
+}
+
+function generateRandomizationInHTML(computerSelection,playerSelection) {
+    let temp = document.querySelector(".text-i.two");
+    let temp2 = document.querySelector(".text-i.three");
+    temp2.innerHTML = "    You: " + convertIntegerToWords(playerSelection);
+    temp.innerHTML = "Computer: " + convertIntegerToWords(computerSelection);
+}
+
+function playRound(choice) {
+    const playerSelection = parseInt(choice.getAttribute("key-value"));
+    const computerSelection = computerPlay();
+    generateRandomizationInHTML(computerSelection,playerSelection);
+    let roundWinner = getRoundWinner(playerSelection, computerSelection);
+    if (roundWinner == 2) {
+        message = "IT'S A TIE";
     } else {
-        console.log("Please input 0, 1, or 2.")
-        getPlayerSelection();
+        message = (roundWinner == 0) ? "SORRY, COMPUTER WINS" : "CONGRATS, YOU WIN";
+    }
+    return message;
+}
+
+function clicked(e) {
+    const choice = e.target;
+    message = playRound(choice);
+    document.querySelector(".winner").innerHTML = message;
+    console.log(winner);
+}
+
+function main() {
+    const choices = Array.from(document.body.querySelectorAll(".choice"));
+    for (let choice of choices) {
+        choice.addEventListener("mousedown",clicked);
     }
 }
 
-function showScores(scores) {
-    console.log("SCORES: \n       You: " + scores[0] + "\n  Computer: " + scores[1]);
-}
-
-function playGame() {
-    console.log("WELCOME TO THE GAME OF ROCK, PAPER, AND SCISSORS");
-    console.log("You are to play with the computer.");
-    console.log("The first to score 5 wins.");
-    console.log("--------------------------");
-    console.log(" ------------------------ ");
-    console.log("  ---------------------- ");
-    console.log(" ------------------------ ");
-    console.log("--------------------------");
-
-    let scores = [0,0,0] // [playerScore, computerScore, ties]
-
-    let i = 1;
-    while (!checkIfWinnerExists(scores)) {
-        console.log("ROUND " + i);
-        let playerSelection = getPlayerSelection(); 
-        let computerSelection = computerPlay();
-        let roundWinner = getRoundWinner(playerSelection, computerSelection);
-        scores[roundWinner] = scores[roundWinner] + 1;
-        showScores(scores);
-        i++;
-        console.log("--------------------------");
-        console.log(" ------------------------ ");
-        console.log("--------------------------");
-    }
-
-    let winner = getWinner(scores);
-
-    let message;
-
-    if (winner == 1) {
-        message = "Sorry, you lost. The computer won."
-    } else {
-        message = "Congratulations! You won.\n However, you angered the computer overlords. Prepare for the computer uprising."
-    }
-
-    console.log(message);
-
-    return;
-}
-
-playGame();
+main();

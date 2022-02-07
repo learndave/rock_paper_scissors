@@ -5,11 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Papers, and Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Rock, Papers, and Scissors</h1>
-    <p>An attempt to solve the problem posed in <a href="https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/rock-paper-scissors">The Odin Project</a></p>
-    <sub>Press <i>F12</i> and go to <i>Console</i> for details.</sub>
+    <div class="body">
+        <h1>Rock, Papers, and Scissors</h1>
+        <i class="subtitle">An attempt to complete <a href="https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/rock-paper-scissors">this</a> project from The Odin Project.</i>
+        <i class="text-i">Ready to play against computer?</i>
+        <div class="text">Click your choice!</div>
+        <div class="choice-container">
+            <div class="choice" key-value="0">
+                Rock
+            </div>
+            <div class="choice" key-value="1">
+                Paper
+            </div>
+            <div class="choice" key-value="2">
+                Scissors
+            </div>
+        </div>
+        <i class="text-i three"></i>
+        <i class="text-i two"></i>
+        <div class="text computer-play"></div>
+        <div class="winner"></div>
+    </div>
+    <div class="footer">© Francis Dave Cabanting, 2022</div>
     <script src="javascript.js"></script>
 </body>
 </html>
