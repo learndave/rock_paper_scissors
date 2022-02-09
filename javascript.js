@@ -84,15 +84,17 @@ function playRound(choice) {
 
 function clicked(e) {
     const choice = e.target;
+    choice.classList.add("clicked");
     message = playRound(choice);
     document.querySelector(".winner").innerHTML = message;
-    console.log(winner);
+    console.log(message);
 }
 
 function main() {
     const choices = Array.from(document.body.querySelectorAll(".choice"));
     for (let choice of choices) {
         choice.addEventListener("mousedown",clicked);
+        choice.addEventListener("mouseup",e => {e.target.classList.remove("clicked")});
     }
 }
 
