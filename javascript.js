@@ -77,7 +77,7 @@ function playRound(choice) {
     if (roundWinner == 2) {
         message = "IT'S A TIE";
     } else {
-        message = (roundWinner == 0) ? "SORRY, COMPUTER WINS" : "CONGRATS, YOU WIN";
+        message = (roundWinner == 1) ? "SORRY, COMPUTER WINS" : "CONGRATS, YOU WIN";
     }
     return message;
 }
